@@ -1,7 +1,7 @@
 # Utilisation
 
 ```bash
-npm install --save git+ssh://git@git.shoot-shoot.com:shoot/ssd-deploy.git
+npm install --save https://github.com/thi3rry/ssd-deploy.git
 ```
 
 À la racine de votre projet créé un fichier `deploy.js` et mettez-y le contenu suivant :
