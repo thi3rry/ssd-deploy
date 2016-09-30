@@ -26,6 +26,12 @@ require('ssd-deploy')({
 });
 ```
 
+Puis
+
+```bash
+node deploy.js
+```
+
 Modifier les paramètres de configuration et remplicer le tableau `files`.
 
 ATTENTION à bien renseigner le paramètre `cwd` de source et de destination. C'est le root qui sera utiliser pour déplacer de la source à la destination.
