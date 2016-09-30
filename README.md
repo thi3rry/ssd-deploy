@@ -40,7 +40,7 @@ Exemple :
 
 Dans l'exemple suivant, à chaque `node deploy.js`, on enverra tous les fichiers/dossiers situé dans le dossier local `src/dist/css`et `src/dist/js` vers le dossier du FTP `/web/vhost/www.monsite.com/htdocs`.
 
-Autrement dit, le dossier `src/ local, correspond au dossier `/web/vhost/www.monsite.com/htdocs` distant.
+Autrement dit, le dossier `src/` local, correspond au dossier `/web/vhost/www.monsite.com/htdocs` distant.
 
 ```js
 # !/usr/local/bin/node
