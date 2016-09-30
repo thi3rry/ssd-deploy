@@ -42,22 +42,29 @@ let defaultConfiguration = {
 module.exports = function(__configuration) {
     let configuration = deepExtend(defaultConfiguration, __configuration);
 
-    let client = null;
-    let promise = null;
+    let client      = null;
+    let promise     = null;
+    let connectConf = {};
     if (configuration.destination.protocol == 'sftp') {
         client = new SftpClient();
+        connectConf = {
+            host: configuration.destination.host,
+            port: configuration.destination.port,
+            username: configuration.destination.username,
+            password: configuration.destination.password
+        };
     }
     else if (configuration.destination.protocol == 'ftp') {
         client = new FtpClient();
+        connectConf = {
+            host: configuration.destination.host,
+            port: configuration.destination.port,
+            user: configuration.destination.username,
+            password: configuration.destination.password
+        };
     }
-    promise = client.connect({
-        host: configuration.destination.host,
-        port: configuration.destination.port,
-        username: configuration.destination.username,
-        user: configuration.destination.username,
-        password: configuration.destination.password
-    }).then(()=>{
-        let files = cleanFilePaths(configuration.files);
+    promise = client.connect(connectConf).then(()=>{
+        let files = cleanFilePaths(configuration.files, configuration.source.cwd);
         // console.log(files);
         files.map((elem) => {
             let src = path.join(configuration.source.cwd, elem);
@@ -80,6 +87,7 @@ module.exports = function(__configuration) {
             }
         });
     }).catch((err)=>{
+        console.log(err);
         throw new Error(err);
     });;
 }
