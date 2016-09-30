@@ -6,8 +6,8 @@
  *
  * ```bash
  * npm install --save ssh2-sftp-client
- * npm install --save promise-ftp
- * npm install --save promise-ftp-common
+ * npm install --save  promise-ftp
+ * npm install --save  promise-ftp-common
  * ```
  *
  * @see  https://github.com/jyu213/ssh2-sftp-client
@@ -21,7 +21,6 @@ const path               = require('path');
 const SftpClient         = require('ssh2-sftp-client');
 const FtpClient          = require('promise-ftp');
 
-const getRecursiveFiles  = require('./lib/getRecursiveFiles');
 const cleanFilePaths     = require('./lib/cleanFilePaths');
 const deepExtend         = require('./lib/deepExtend');
 let defaultConfiguration = {
@@ -43,7 +42,6 @@ module.exports = function(__configuration) {
     let configuration = deepExtend(defaultConfiguration, __configuration);
 
     let client      = null;
-    let promise     = null;
     let connectConf = {};
     if (configuration.destination.protocol == 'sftp') {
         client = new SftpClient();
@@ -63,7 +61,7 @@ module.exports = function(__configuration) {
             password: configuration.destination.password
         };
     }
-    promise = client.connect(connectConf).then(()=>{
+    client.connect(connectConf).then(()=>{
         let files = cleanFilePaths(configuration.files, configuration.source.cwd);
         // console.log(files);
         files.map((elem) => {
